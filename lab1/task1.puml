@@ -1,0 +1,60 @@
+@startuml
+!define RECTANGLE class
+
+actor Customer
+actor "Kitchen Staff" as KitchenStaff
+actor "Wait Staff" as WaitStaff
+actor Manager
+
+' Customer Interface System
+rectangle "Customer Interface System" as CustomerInterfaceSystem {
+    (Browse Menu)
+    (Place Order)
+    (Make Payment)
+    (Receive Order Status)
+    (Call Wait Staff)
+}
+
+' Kitchen System
+rectangle "Kitchen System" as KitchenSystem {
+    (Manage Orders)
+}
+
+' Management System
+rectangle "Management System" as ManagementSystem {
+    (Modify Menu)
+    (Assist Customer)
+    (Deliver Food)
+}
+
+' Customer Actions
+Customer --> (Browse Menu)
+Customer --> (Place Order)
+Customer --> (Make Payment)
+Customer --> (Receive Order Status)
+Customer --> (Call Wait Staff)
+
+' Kitchen Staff Actions
+KitchenStaff --> (Manage Orders)
+
+' Wait Staff Actions
+WaitStaff --> (Assist Customer)
+WaitStaff --> (Deliver Food)
+
+' Manager Actions
+Manager --> (Modify Menu)
+
+' Use Case Flow Connections
+(Browse Menu) --> (Place Order)
+(Place Order) --> (Make Payment)
+(Place Order) --> (Receive Order Status)
+
+' Actor Connections
+Customer --> (Assist Customer) : "Request Assistance"
+WaitStaff --> (Manage Orders) : "Order Ready for Delivery"
+Manager --> (Deliver Food) : "Supervise/Manage"
+Manager --> (Manage Orders) : "Oversee Orders"
+Manager --> Customer : "Resolve Issues"
+
+@enduml
+

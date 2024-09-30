@@ -1,0 +1,94 @@
+@startuml
+
+' Define classes for the system
+
+class Kiosk {
+    + browseMenu(): void
+    + placeOrder(Order): void
+    + makePayment(Payment): void
+    + callWaitStaff(): void
+    + receiveOrderStatus(Order): void
+}
+
+class Menu {
+    + addMenuItem(MenuItem): void
+    + removeMenuItem(MenuItem): void
+    + displayMenu(): List<MenuItem>
+}
+
+class MenuItem {
+    - name: String
+    - price: double
+    - description: String
+    - isAvailable: Boolean
+    + updateAvailability(isAvailable: Boolean): void
+    + getDetails(): String
+}
+
+class Customer {
+    - name: String
+    - contactInfo: String
+    + selectItems(): List<MenuItem>
+    + placeOrder(Order): void
+}
+
+class Order {
+    - orderNumber: String
+    - items: List<MenuItem>
+    - status: OrderStatus
+    - totalAmount: double
+    + addItem(MenuItem): void
+    + removeItem(MenuItem): void
+    + calculateTotal(): double
+    + updateStatus(OrderStatus): void
+}
+
+enum OrderStatus {
+    PLACED
+    PREPARING
+    READY
+    COMPLETED
+}
+
+class Payment {
+    - paymentMethod: PaymentMethod
+    - amount: double
+    + processPayment(): boolean
+}
+
+enum PaymentMethod {
+    CARD
+    MOBILE_WALLET
+    CASH
+}
+
+class KitchenStaff {
+    + viewOrder(Order): void
+    + updateOrderStatus(Order, OrderStatus): void
+}
+
+class WaitStaff {
+    + deliverOrder(Order): void
+    + assistCustomer(): void
+}
+
+class Manager {
+    + modifyMenu(Menu): void
+    + updateItemAvailability(MenuItem, Boolean): void
+}
+
+' Relationships between classes
+
+Kiosk --> Customer : interacts with
+Kiosk --> Menu : displays
+Customer --> Order : places
+Order --> MenuItem : contains
+Order --> Payment : processes
+Payment --> PaymentMethod : uses
+KitchenStaff --> Order : manages
+WaitStaff --> Order : delivers
+Manager --> Menu : modifies
+Manager --> MenuItem : updates availability
+
+@enduml
+

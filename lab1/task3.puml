@@ -1,0 +1,38 @@
+@startuml
+!define RECTANGLE class
+
+actor Commuter
+actor Bank
+
+' Ticket Vending Machine System
+rectangle "Ticket Vending Machine System" as TVMSystem {
+    
+    (Select Ticket Type)
+    (Enter Journey Details)
+    (Check Availability)
+    (Calculate Fare)
+    (Make Payment)
+    (Print Ticket/Issue Digital Ticket)
+    (Cancel Ticket)
+}
+
+' Relationships between Commuter and Use Cases
+Commuter --> (Select Ticket Type)
+Commuter --> (Enter Journey Details)
+Commuter --> (Check Availability)
+Commuter --> (Make Payment)
+Commuter --> (Print Ticket/Issue Digital Ticket)
+Commuter --> (Cancel Ticket)
+
+' Relationships between TVM System and Bank
+Bank --> (Make Payment)
+
+' Use Case Dependencies
+(Select Ticket Type) --> (Enter Journey Details)
+(Enter Journey Details) --> (Check Availability)
+(Check Availability) --> (Calculate Fare)
+(Calculate Fare) --> (Make Payment)
+(Make Payment) --> (Print Ticket/Issue Digital Ticket)
+
+@enduml
+
